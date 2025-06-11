@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" id="html">
 <head>
@@ -292,7 +293,7 @@
       spinner.className = 'spinner mx-auto';
       spinner.style.display = 'block';
       try {
-        const res = await fetch(`${apiBase}/manga?limit=20&offset=${offset}&order[followedCount]=desc&includes[]=cover_art`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/manga?limit=20&offset=${offset}&order[followedCount]=desc&includes[]=cover_art`)}`);
         if (!res.ok) throw new Error('Failed to fetch manga');
         const data = await res.json();
         displayManga(data.data, append);
@@ -343,7 +344,7 @@
       document.getElementById('mangaList').classList.add('hidden');
       document.getElementById('mangaDetails').classList.remove('hidden');
       try {
-        const res = await fetch(`${apiBase}/manga/${mangaId}?includes[]=cover_art`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/manga/${mangaId}?includes[]=cover_art`)}`);
         if (!res.ok) throw new Error('Failed to fetch manga details');
         const data = await res.json();
         mangaDetails = data.data;
@@ -374,7 +375,7 @@
       recommendationList.innerHTML = '<div class="spinner mx-auto" style="display: block;"></div>';
       try {
         const genreQuery = genres.map(g => `tags[]=${encodeURIComponent(g)}`).join('&');
-        const res = await fetch(`${apiBase}/manga?limit=10&${genreQuery}&includes[]=cover_art`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/manga?limit=10&${genreQuery}&includes[]=cover_art`)}`);
         if (!res.ok) throw new Error('Failed to fetch recommendations');
         const data = await res.json();
         const views = JSON.parse(localStorage.getItem('mangaViews') || '{}');
@@ -418,7 +419,7 @@
       document.getElementById('mangaTitle').innerText = mangaDetails.attributes.title.en || 'Untitled';
       document.getElementById('chapterSpinner').style.display = 'block';
       try {
-        const res = await fetch(`${apiBase}/manga/${currentMangaId}/feed?limit=100&translatedLanguage[]=en&order[chapter]=asc`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/manga/${currentMangaId}/feed?limit=100&translatedLanguage[]=en&order[chapter]=asc`)}`);
         if (!res.ok) throw new Error('Failed to fetch chapters');
         const data = await res.json();
         chapters = data.data;
@@ -466,7 +467,7 @@
       document.getElementById('pagesSection').classList.remove('hidden');
       document.getElementById('pageSpinner').style.display = 'block';
       try {
-        const res = await fetch(`${apiBase}/at-home/server/${chapterId}`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/at-home/server/${chapterId}`)}`);
         if (!res.ok) throw new Error('Failed to fetch pages');
         const data = await res.json();
         const baseUrl = data.baseUrl;
@@ -637,7 +638,7 @@
       document.getElementById('recommendations').classList.add('hidden');
       if (!query.trim()) return fetchTrendingManga();
       try {
-        const res = await fetch(`${apiBase}/manga?limit=20&title=${encodeURIComponent(query)}&includes[]=cover_art`);
+        const res = await fetch(`/api/proxy?url=${encodeURIComponent(`${apiBase}/manga?limit=20&title=${encodeURIComponent(query)}&includes[]=cover_art`)}`);
         if (!res.ok) throw new Error('Failed to fetch manga');
         const data = await res.json();
         displayManga(data.data);
