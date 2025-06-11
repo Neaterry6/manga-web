@@ -1,20 +1,13 @@
+
 {
   "version": 2,
   "builds": [
     {
       "src": "public/**/*",
       "use": "@vercel/static"
-    },
-    {
-      "src": "api/proxy.js",
-      "use": "@vercel/node"
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/proxy",
-      "destination": "/api/proxy.js"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
