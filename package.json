@@ -1,0 +1,12 @@
+{
+  "name": "manga-reader",
+  "version": "1.0.0",
+  "description": "A manga reading web app with offline support and advanced features",
+  "scripts": {
+    "start": "http-server public -p 3000"
+  },
+  "author": "heisbroken",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
